@@ -4467,118 +4467,50 @@ function checkPin() {
 /* ── Datos del formulario clínico ── */
 const HC_SECTIONS = [
   {
-    num:"I", title:"Datos de identificación",
+    num:"I", title:"Datos del paciente",
     fields:[
-      { id:"hc_nombre",      label:"Nombre completo del paciente",           type:"text",   span:2 },
-      { id:"hc_doc_tipo",    label:"Tipo de documento",                       type:"select", opts:["C.C.","T.I.","C.E.","Pasaporte","PEP","Otro"] },
-      { id:"hc_doc_num",     label:"Número de documento",                     type:"text" },
-      { id:"hc_fecha_nac",   label:"Fecha de nacimiento",                     type:"date" },
-      { id:"hc_edad",        label:"Edad",                                    type:"text",   ph:"ej. 34 años" },
-      { id:"hc_genero",      label:"Género",                                  type:"select", opts:["Masculino","Femenino","No binario/a","Otro","Prefiere no decir"] },
-      { id:"hc_estado_civil",label:"Estado civil",                            type:"select", opts:["Soltero/a","Casado/a","Unión libre","Separado/a","Divorciado/a","Viudo/a"] },
-      { id:"hc_escolaridad", label:"Nivel de escolaridad",                    type:"select", opts:["Sin escolaridad","Primaria incompleta","Primaria completa","Bachillerato incompleto","Bachillerato completo","Técnico/Tecnológico","Universitario incompleto","Universitario completo","Especialización","Maestría","Doctorado"] },
-      { id:"hc_ocupacion",   label:"Ocupación / Profesión",                  type:"text" },
-      { id:"hc_ciudad",      label:"Ciudad de residencia",                   type:"text",   ph:"ej. Bogotá D.C." },
-      { id:"hc_telefono",    label:"Teléfono / WhatsApp",                    type:"tel" },
-      { id:"hc_email",       label:"Correo electrónico",                     type:"email" },
-      { id:"hc_acudiente",   label:"Acudiente / responsable (si aplica)",    type:"text" },
-      { id:"hc_fecha",       label:"Fecha de la sesión",                     type:"date" },
-      { id:"hc_codigo",      label:"N.° / Código de historia clínica",       type:"text",   ph:"ej. HC-2025-001" },
+      { id:"hc_nombre",      label:"Nombre completo",          type:"text", span:2 },
+      { id:"hc_edad",        label:"Edad",                     type:"text", ph:"ej. 34 años" },
+      { id:"hc_ocupacion",   label:"Ocupación",                type:"text" },
+      { id:"hc_fecha",       label:"Fecha de la sesión",       type:"date" },
+      { id:"hc_sesion_num",  label:"N.° de sesión",            type:"text", ph:"ej. 1, 2, 3…" },
+      { id:"hc_codigo",      label:"Código HC",                type:"text", ph:"ej. HC-2025-001" },
     ]
   },
   {
     num:"II", title:"Motivo de consulta",
     fields:[
-      { id:"hc_motivo",      label:"Motivo de consulta en palabras del paciente (verbatim)",           type:"ta", rows:4 },
-      { id:"hc_derivacion",  label:"Cómo llegó a consulta / quién lo remitió",                        type:"text", span:2 },
+      { id:"hc_motivo",      label:"¿Por qué consulta? (en palabras del paciente)",          type:"ta", rows:4 },
+      { id:"hc_expectativa", label:"¿Qué espera lograr con el proceso terapéutico?",         type:"ta", rows:3 },
     ]
   },
   {
-    num:"III", title:"Historia del problema actual",
+    num:"III", title:"Descripción del problema",
     fields:[
-      { id:"hc_hpa",          label:"Descripción del problema actual",                                        type:"ta", rows:5 },
-      { id:"hc_inicio",       label:"Inicio y evolución del problema",                                        type:"ta", rows:3 },
-      { id:"hc_precipit",     label:"Factores precipitantes o desencadenantes",                               type:"ta", rows:3 },
-      { id:"hc_mantened",     label:"Factores de mantenimiento",                                              type:"ta", rows:3 },
-      { id:"hc_soluciones",   label:"Intentos previos de solución",                                          type:"ta", rows:3 },
-      { id:"hc_impacto",      label:"Impacto en áreas de vida (laboral, familiar, social, personal)",         type:"ta", rows:3 },
+      { id:"hc_hpa",         label:"Descripción del problema actual",                        type:"ta", rows:5 },
+      { id:"hc_inicio",      label:"¿Cuándo inició y cómo ha evolucionado?",                 type:"ta", rows:3 },
+      { id:"hc_impacto",     label:"¿Cómo afecta su vida cotidiana (trabajo, relaciones, salud)?", type:"ta", rows:3 },
+      { id:"hc_intentos",    label:"¿Qué ha intentado para resolverlo?",                     type:"ta", rows:3 },
     ]
   },
   {
-    num:"IV", title:"Antecedentes personales",
+    num:"IV", title:"Contexto familiar",
     fields:[
-      { id:"hc_desarrollo",   label:"Historia del desarrollo (prenatal, natal, postnatal)",                   type:"ta", rows:3 },
-      { id:"hc_hitos",        label:"Hitos del desarrollo (psicomotor, lenguaje, escolar)",                   type:"ta", rows:3 },
-      { id:"hc_med",          label:"Antecedentes médicos (enfermedades, cirugías, medicamentos actuales)",    type:"ta", rows:3 },
-      { id:"hc_psiq_prev",    label:"Antecedentes psiquiátricos/psicológicos previos y tratamientos",         type:"ta", rows:3 },
-      { id:"hc_hosp",         label:"Hospitalizaciones (fecha, motivo, duración)",                            type:"ta", rows:2 },
-      { id:"hc_spa",          label:"Consumo de sustancias psicoactivas (tipo, frecuencia, cantidad, tiempo)",type:"ta", rows:3 },
-      { id:"hc_trauma",       label:"Historia de trauma y eventos vitales adversos",                          type:"ta", rows:3 },
+      { id:"hc_familia",     label:"¿Con quién vive actualmente? Composición del hogar",     type:"ta", rows:3 },
+      { id:"hc_relaciones",  label:"¿Cómo son las relaciones con las personas más cercanas?", type:"ta", rows:3 },
+      { id:"hc_crianza",     label:"¿Cómo describe su crianza y relación con sus padres/cuidadores?", type:"ta", rows:3 },
+      { id:"hc_red_apoyo",   label:"¿Cuenta con red de apoyo? ¿A quién acude cuando lo necesita?", type:"ta", rows:2 },
     ]
   },
   {
-    num:"V", title:"Historia familiar",
+    num:"V", title:"Herramientas y recomendaciones",
     fields:[
-      { id:"hc_familia",      label:"Composición del núcleo familiar (genograma narrativo)",                  type:"ta", rows:4 },
-      { id:"hc_dinamica",     label:"Dinámica familiar, tipo de crianza y relaciones actuales",               type:"ta", rows:4 },
-      { id:"hc_ant_fam",      label:"Antecedentes psicopatológicos familiares",                               type:"ta", rows:3 },
-    ]
-  },
-  {
-    num:"VI", title:"Historia social y relacional",
-    fields:[
-      { id:"hc_red_apoyo",    label:"Red de apoyo social",                                                    type:"ta", rows:3 },
-      { id:"hc_relaciones",   label:"Relaciones interpersonales (calidad, patrones, conflictos)",              type:"ta", rows:3 },
-      { id:"hc_lab_esc",      label:"Historia laboral / académica",                                           type:"ta", rows:3 },
-      { id:"hc_sexual",       label:"Área sexual y afectiva",                                                 type:"ta", rows:3 },
-    ]
-  },
-  {
-    num:"VII", title:"Evaluación del estado mental",
-    fields:[
-      { id:"hc_esm_apar",     label:"Apariencia y presentación general",                                      type:"ta", rows:2 },
-      { id:"hc_esm_cond",     label:"Actitud y comportamiento durante la entrevista",                          type:"ta", rows:2 },
-      { id:"hc_esm_leng",     label:"Lenguaje y habla (fluidez, coherencia, asociaciones)",                   type:"ta", rows:2 },
-      { id:"hc_esm_animo",    label:"Estado de ánimo y afecto — subjetivo / objetivo / congruencia",          type:"ta", rows:2 },
-      { id:"hc_esm_pens",     label:"Curso y contenido del pensamiento",                                      type:"ta", rows:2 },
-      { id:"hc_esm_perc",     label:"Percepción (alucinaciones, ilusiones, despersonalización)",               type:"ta", rows:2 },
-      { id:"hc_esm_cog",      label:"Cognición (orientación, memoria, concentración, juicio, abstracción)",    type:"ta", rows:2 },
-      { id:"hc_esm_intros",   label:"Introspección / conciencia de enfermedad",                               type:"ta", rows:2 },
-    ]
-  },
-  {
-    num:"VIII", title:"Evaluación de riesgo",
-    fields:[
-      { id:"hc_ideacion",     label:"Ideación suicida (activa/pasiva, plan, acceso a medios, intención, intentos previos)", type:"ta", rows:3 },
-      { id:"hc_autolesion",   label:"Comportamientos autolesivos (tipo, frecuencia, función)",                 type:"ta", rows:2 },
-      { id:"hc_heteroagr",    label:"Riesgo heteroagresivo",                                                  type:"ta", rows:2 },
-      { id:"hc_protectores",  label:"Factores protectores",                                                   type:"ta", rows:2 },
-      { id:"hc_riesgo_niv",   label:"Nivel de riesgo global",  type:"select",
-        opts:["Sin riesgo identificado","Riesgo bajo","Riesgo moderado","Riesgo alto","Riesgo inminente"] },
-    ]
-  },
-  {
-    num:"IX", title:"Impresión diagnóstica",
-    fields:[
-      { id:"hc_hipotesis",    label:"Hipótesis diagnóstica (DSM-5 / CIE-11) — código y nombre",               type:"ta", rows:3 },
-      { id:"hc_diferencial",  label:"Diagnóstico diferencial",                                                type:"ta", rows:2 },
-      { id:"hc_formulacion",  label:"Formulación de caso — predisponentes, precipitantes, perpetuantes, protectores (ACT/DBT/TCC)", type:"ta", rows:6 },
-    ]
-  },
-  {
-    num:"X", title:"Plan de intervención",
-    fields:[
-      { id:"hc_objetivos",    label:"Objetivos terapéuticos a corto y mediano plazo",                         type:"ta", rows:3 },
-      { id:"hc_enfoque",      label:"Enfoque terapéutico seleccionado", type:"select",
-        opts:["ACT (Terapia de Aceptación y Compromiso)","DBT (Terapia Dialéctica Conductual)","TCC (Terapia Cognitivo-Conductual)","Terapia Narrativa","TCC + ACT","DBT + ACT","Integrador","Humanista","Sistémico-relacional","Psicoanálisis","Otro"] },
-      { id:"hc_frecuencia",   label:"Frecuencia y duración propuesta",  type:"text", ph:"ej. 1 sesión semanal de 50 min por 3 meses" },
-      { id:"hc_pruebas",      label:"Instrumentos / pruebas a aplicar", type:"ta",   rows:2, ph:"ej. DASS-21, BDI-II, PCL-5, WAIS-IV…" },
-    ]
-  },
-  {
-    num:"XI", title:"Observaciones adicionales",
-    fields:[
-      { id:"hc_obs",          label:"Notas clínicas / observaciones complementarias",                         type:"ta", rows:6 },
+      { id:"hc_enfoque",     label:"Enfoque terapéutico", type:"select",
+        opts:["ACT (Aceptación y Compromiso)","DBT (Dialéctica Conductual)","TCC (Cognitivo-Conductual)","Terapia Narrativa","TCC + ACT","DBT + ACT","Integrador","Humanista","Otro"] },
+      { id:"hc_herramientas", label:"Herramientas y técnicas trabajadas en sesión",           type:"ta", rows:4, ph:"ej. Defusión cognitiva, registro de pensamientos, respiración 4-7-8, valores ACT…" },
+      { id:"hc_tareas",      label:"Tareas o compromisos para casa",                         type:"ta", rows:3, ph:"ej. Escribir en el diario emocional 3 veces esta semana…" },
+      { id:"hc_recom",       label:"Recomendaciones y observaciones clínicas",               type:"ta", rows:4 },
+      { id:"hc_proxima",     label:"Foco de la próxima sesión",                              type:"ta", rows:2 },
     ]
   },
 ];
